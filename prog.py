@@ -1,10 +1,24 @@
 import re
 import subprocess
 import psutil
+import platform
 
-com = "ipconfig"
-a = subprocess.Popen(com, shell=True)
-b = a.wait()
+
+if platform.system() == "Windows" :
+
+   com = "ipconfig"
+   a = subprocess.Popen(com, shell=True)
+   b = a.wait()
+
+elif platform.system() == "Darwin" :
+    cmd = "networksetup-listallhardwareports"
+    a = subprocess.Popen(cmd, shell=True)
+    b = a.wait()
+
+elif platform.system() == "Linux":
+    cmd = "hwinfo"
+    a = subprocess.Popen(cmd, shell=True)
+    b = a.wait()
 
 mem = psutil.virtual_memory()
 print(mem)
